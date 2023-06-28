@@ -1,10 +1,15 @@
 import { Text, View, Alert } from "react-native";
-import React, { Component } from "react";
+import React, { Component, createContext } from "react";
 import * as MediaLibrary from "expo-media-library";
 
+export const AudioContext = createContext();
 export class AudioProvider extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      audioFiles: [],
+      permissionError: false,
+    };
   }
 
   permissionAlert = () => {
@@ -19,6 +24,21 @@ export class AudioProvider extends Component {
       },
     ]);
   };
+
+  getAudioFiles = async () => {
+    let media = await MediaLibrary.getAssetsAsync({
+      mediaType: "audio",
+    });
+    media = await MediaLibrary.getAssetsAsync({
+      mediaType: "audio",
+      first: media.totalCount,
+    });
+    console.warn(media.assets.length);
+    //     console.warn(media.assets);
+    this.setState({ ...this.state, audioFiles: media.assets });
+
+    //     console.warn(this.state.audioFiles);
+  };
   getPermission = async () => {
     //  {
     //       "canAskAgain": true,
@@ -29,21 +49,24 @@ export class AudioProvider extends Component {
     const permission = await MediaLibrary.getPermissionsAsync();
     console.warn(permission);
     if (permission.granted) {
-      //TODO: get all audio files
+      this.getAudioFiles();
+    }
+
+    if (!permission.canAskAgain && !permission.granted) {
+      //FIXME: write a function to call system permission again
+      this.setState({ ...this.state, permissionError: true });
     }
     if (!permission.granted && permission.canAskAgain) {
       const { status, canAskAgain } =
         await MediaLibrary.requestPermissionsAsync();
       if (status === "denied" && canAskAgain) {
-        //TODO: we are going to display alert that user must allow this permission to work this app
-
         this.permissionAlert();
       }
       if (status === "granted") {
-        //TODO: get all audio files
+        this.getAudioFiles();
       }
       if (status === "denied" && !canAskAgain) {
-        //TODO: we are going to display alert error to the user
+        this.setState({ ...this.state, permissionError: true });
       }
     }
   };
@@ -52,10 +75,28 @@ export class AudioProvider extends Component {
   }
 
   render() {
+    if (this.state.permissionError) {
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 10,
+        }}
+      >
+        <Text style={{ fontSize: 25, textAlign: "center", color: "red" }}>
+          It looks like you haven't accept the permission.
+        </Text>
+      </View>;
+    }
     return (
-      <View>
-        <Text>AudioProvider</Text>
-      </View>
+      <AudioContext.Provider
+        value={{
+          audioFiles: this.state.audioFiles,
+        }}
+      >
+        {this.props.children}
+      </AudioContext.Provider>
     );
   }
 }
