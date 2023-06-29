@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AudioList from "../screens/AudioList";
+import AudioList from "../screens/class/AudioList";
 import Player from "../screens/Player";
 import PlayList from "../screens/PlayList";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
