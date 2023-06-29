@@ -7,7 +7,21 @@ import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 const AppNavigator = () => {
   const BottomTab = createBottomTabNavigator();
   return (
-    <BottomTab.Navigator initialRouteName="Audiolist">
+    <BottomTab.Navigator
+      initialRouteName="Audiolist"
+      // screenOptions={{
+      //   tabBarShowLabel: false,
+      //   tabBarStyle: {
+      //     height: 70,
+      //     position: "absolute",
+      //     bottom: 16,
+      //     right: 16,
+      //     left: 16,
+      //     borderWidth: 0,
+      //     borderRadius: 4,
+      //   },
+      // }}
+    >
       <BottomTab.Screen
         name="Audiolist"
         component={AudioList}

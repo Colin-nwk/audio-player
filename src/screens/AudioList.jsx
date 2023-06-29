@@ -17,7 +17,10 @@ export default class AudioList extends Component {
         <ScrollView className="">
           {this.context.audioFiles.map((item, index) => (
             <Pressable key={item.id}>
-              <AudioListItem audio={item} />
+              <AudioListItem
+                audio={item}
+                onOptionPressed={() => console.warn("AudioList 22: pressed")}
+              />
             </Pressable>
           ))}
         </ScrollView>
@@ -25,12 +28,3 @@ export default class AudioList extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

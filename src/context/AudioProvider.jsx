@@ -36,7 +36,7 @@ export class AudioProvider extends Component {
       mediaType: "audio",
       first: media.totalCount,
     });
-    console.warn(media.assets.length);
+    console.warn("AudioProvider:39 " + media.assets.length);
     //     console.warn(media.assets);
     this.setState({
       ...this.state,
@@ -57,7 +57,7 @@ export class AudioProvider extends Component {
     //                   "status": "undetermined"
     // }
     const permission = await MediaLibrary.getPermissionsAsync();
-    console.warn(permission);
+    console.warn("AudioProvider: 60: " + JSON.stringify(permission));
     if (permission.granted) {
       this.getAudioFiles();
     }
