@@ -14,8 +14,15 @@ const AppNavigator = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ size, color, focused }) => (
-            <MaterialIcons name="headset" size={size} color={color} />
+            <MaterialIcons
+              name="headset"
+              size={size}
+              color={focused ? "#050911" : color}
+            />
           ),
+          tabBarLabelStyle: {
+            color: "#050911",
+          },
         }}
       />
       <BottomTab.Screen
@@ -24,8 +31,15 @@ const AppNavigator = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ size, color, focused }) => (
-            <FontAwesome5 name="compact-disc" size={size} color={color} />
+            <FontAwesome5
+              name="compact-disc"
+              size={size}
+              color={focused ? "#050911" : color}
+            />
           ),
+          tabBarLabelStyle: {
+            color: "#050911",
+          },
         }}
       />
       <BottomTab.Screen
@@ -34,8 +48,15 @@ const AppNavigator = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ size, color, focused }) => (
-            <MaterialIcons name="library-music" size={size} color={color} />
+            <MaterialIcons
+              name="library-music"
+              size={size}
+              color={focused ? "#050911" : color}
+            />
           ),
+          tabBarLabelStyle: {
+            color: "#050911",
+          },
         }}
       />
     </BottomTab.Navigator>

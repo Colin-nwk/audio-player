@@ -10,7 +10,7 @@ export class AudioProvider extends Component {
     this.state = {
       audioFiles: [],
       permissionError: false,
-      dataProvider: new DataProvider((r1, r2) => r1 !== r2),
+      // dataProvider: new DataProvider((r1, r2) => r1 !== r2),
     };
   }
 
@@ -40,10 +40,10 @@ export class AudioProvider extends Component {
     //     console.warn(media.assets);
     this.setState({
       ...this.state,
-      dataProvider: dataProvider.cloneWithRows([
-        ...audioFiles,
-        ...media.assets,
-      ]),
+      // dataProvider: dataProvider.cloneWithRows([
+      //   ...audioFiles,
+      //   ...media.assets,
+      // ]),
       audioFiles: [...audioFiles, ...media.assets],
     });
 
@@ -104,7 +104,7 @@ export class AudioProvider extends Component {
       <AudioContext.Provider
         value={{
           audioFiles,
-          dataProvider,
+          // dataProvider,
         }}
       >
         {this.props.children}
